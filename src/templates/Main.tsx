@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ReactNode } from "react";
 
 import { AppConfig } from "@/utils/AppConfig";
@@ -19,32 +18,6 @@ const Main = (props: IMainProps) => (
             {AppConfig.title}
           </div>
           <div className="text-xl">{AppConfig.description}</div>
-        </div>
-        <div>
-          <ul className="flex flex-wrap text-xl">
-            <li className="mr-6">
-              <Link href="/">
-                <a className="border-none text-gray-50 hover:text-gray-500">
-                  Home
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link href="/about/">
-                <a className="border-none text-gray-50 hover:text-gray-500">
-                  About
-                </a>
-              </Link>
-            </li>
-            <li className="mr-6">
-              <a
-                className="border-none text-gray-50 hover:text-gray-500"
-                href="https://github.com/ixartz/Next-js-Boilerplate"
-              >
-                GitHub
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
 

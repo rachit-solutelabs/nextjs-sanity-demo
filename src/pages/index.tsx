@@ -18,7 +18,7 @@ const Index = ({ data, error }) => {
         />
       }
     >
-      <main className="mx-auto flex w-[85%] flex-wrap items-center justify-center gap-4">
+      <main className="mx-auto my-4 flex w-[85%] flex-wrap items-center justify-center gap-4">
         {error && <p>GraphQL error :(</p>}
         {!error &&
           data.map((item) => {
