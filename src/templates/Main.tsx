@@ -24,11 +24,8 @@ const Main = (props: IMainProps) => (
       <div className="content py-5 text-xl">{props.children}</div>
 
       <div className="mx-auto max-w-screen-md border-t border-gray-300 py-8 text-center text-sm">
-        Powered with{" "}
-        <span role="img" aria-label="Love">
-          ♥
-        </span>{" "}
-        by <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
+        Created with Boilerplate provided by{" "}
+        <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
         {/*
          * PLEASE READ THIS SECTION
          * We'll really appreciate if you could have a link to our website

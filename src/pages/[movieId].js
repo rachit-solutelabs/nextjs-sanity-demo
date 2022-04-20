@@ -1,17 +1,23 @@
 /* eslint-disable no-underscore-dangle */
 import { gql } from "@apollo/client";
 import Image from "next/image";
-// import Link from "next/link";
 
+import { FaGreaterThan } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { PortableText } from "@portabletext/react";
 import YouTube from "react-youtube";
+import { useState } from "react";
 import { Meta } from "../layout/Meta.tsx";
 import { Main } from "../templates/Main.tsx";
 
 import client from "../apollo/apollo-client";
+import ListView from "../components/ListView";
+import MovieTiles from "../components/MovieTiles";
 
 const Movie = ({ data, error }) => {
+  const [castList, setCastList] = useState(false);
+  const [crewList, setCrewList] = useState(false);
+  const [relatedList, setRelatedList] = useState(false);
   const router = useRouter();
 
   const buttonHandler = () => {
@@ -53,7 +59,7 @@ const Movie = ({ data, error }) => {
         />
       }
     >
-      <main className="flex flex-col justify-center items-center">
+      <main className=" w-[78%] mx-auto flex flex-col justify-center items-center">
         <button
           type="button"
           className="bg-black px-4 py-2 mb-6 hover:bg-slate-900"
@@ -61,8 +67,12 @@ const Movie = ({ data, error }) => {
         >
           All Movies
         </button>
-        <div className="w-[75%] flex flex-row gap-8">
-          <div className={`relative w-[${width / 2}px] h-[${height / 2}px]`}>
+        <div className="w-full flex flex-row gap-8">
+          <div
+            className={`relative w-[${width / 2}px] h-[${
+              height / 2
+            }px] flex justify-center items-center`}
+          >
             <Image
               src={data.poster.asset.url}
               alt={data.poster.asset.altText}
@@ -70,9 +80,9 @@ const Movie = ({ data, error }) => {
               height={height}
             />
           </div>
-          <div className="flex flex-col justify-between items-start">
+          <div className="flex flex-col justify-between items-start text-2xl">
             <h1 className="text-5xl text-yellow-200">{data.title}</h1>
-            <p>
+            <p className="text-xl">
               {dateSplit[2]} {months[dateSplit[1] - 1]} {dateSplit[0]}
             </p>
             <PortableText value={data.overviewRaw} />
@@ -85,13 +95,70 @@ const Movie = ({ data, error }) => {
                 src={`${router.basePath}/assets/images/imdb.svg`}
                 alt="IMDB Logo"
                 width={`85rem`}
-                height={`85rem`}
+                height={`45rem`}
                 className="hover:brightness-125"
               />
             </a>
           </div>
         </div>
-        <YouTube videoId={data.youtube} className="mt-10" />
+        <YouTube videoId={data.youtube} className="my-10" />
+        <div
+          className="flex justify-start items-center self-start gap-4 mb-4 cursor-pointer group"
+          onClick={() => {
+            setCastList((s) => !s);
+          }}
+        >
+          <FaGreaterThan
+            className={`text-orange-300 group-hover:text-orange-500 ${
+              castList ? "rotate-90" : ""
+            }`}
+            size="3rem"
+          />
+          <h2 className="text-4xl">Cast</h2>
+        </div>
+        {castList && <ListView data={data.castMembers} />}
+
+        <div
+          className="flex justify-start items-center self-start gap-4 mt-6 mb-4 cursor-pointer group"
+          onClick={() => {
+            setCrewList((s) => !s);
+          }}
+        >
+          <FaGreaterThan
+            className={`text-orange-300 group-hover:text-orange-500 ${
+              crewList ? "rotate-90" : ""
+            }`}
+            size="3rem"
+          />
+          <h2 className="text-4xl">Crew</h2>
+        </div>
+        {crewList && <ListView data={data.crewMembers} />}
+
+        {data.related && (
+          <>
+            <div
+              className="flex justify-start items-center self-start gap-4 mt-6 mb-4 cursor-pointer group"
+              onClick={() => {
+                setRelatedList((s) => !s);
+              }}
+            >
+              <FaGreaterThan
+                className={`text-orange-300 group-hover:text-orange-500 ${
+                  relatedList ? "rotate-90" : ""
+                }`}
+                size="3rem"
+              />
+              <h2 className="text-4xl">Related Movies</h2>
+            </div>
+            {relatedList && (
+              <section className="mx-auto my-4 w-[96.25%] border-l-4 border-gray-500">
+                <div className="ml-4 flex flex-wrap items-center justify-start gap-4">
+                  <MovieTiles data={data.related} />
+                </div>
+              </section>
+            )}
+          </>
+        )}
       </main>
     </Main>
   );
