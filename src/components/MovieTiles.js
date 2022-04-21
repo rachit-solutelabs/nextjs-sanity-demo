@@ -6,7 +6,7 @@ const MovieTiles = ({ data }) => {
   return data.map((item) => {
     return (
       <Link key={item._id} href={`/${item._id}`}>
-        <a className="cursor-pointer hover:scale-105 hover:no-underline">
+        <a className="cursor-pointer hover:scale-105 hover:no-underline transition-all duration-200">
           <div className="flex flex-col items-center justify-center rounded-2xl bg-black text-white shadow-xl">
             <Image
               src={item.poster.asset.url}

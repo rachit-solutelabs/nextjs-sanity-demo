@@ -15,7 +15,7 @@ const Main = (props: IMainProps) => (
       <div className="mx-auto max-w-screen-md border-b border-gray-300">
         <div className="pt-4 pb-8">
           <div className="text-3xl font-bold text-gray-50">
-            {AppConfig.title}
+            {AppConfig.site_name}
           </div>
           <div className="text-xl">{AppConfig.description}</div>
         </div>

@@ -6,6 +6,7 @@ import { Main } from "@/templates/Main";
 
 import client from "../apollo/apollo-client";
 import MovieTiles from "../components/MovieTiles";
+import Sort from "../components/Sort";
 
 const Index = ({ data, error }) => {
   return (
@@ -17,6 +18,9 @@ const Index = ({ data, error }) => {
         />
       }
     >
+      <div className="mx-auto w-[83%]">
+        <Sort />
+      </div>
       <main className="mx-auto my-4 flex w-[85%] flex-wrap items-center justify-center gap-4">
         {error && <p>GraphQL error :(</p>}
         {!error && <MovieTiles data={data} />}
@@ -33,6 +37,7 @@ export async function getServerSideProps() {
           _id
           externalId
           title
+          releaseDate
           poster {
             asset {
               url

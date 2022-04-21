@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Transition } from "react-transition-group";
 import { Meta } from "../layout/Meta.tsx";
 import { Main } from "../templates/Main.tsx";
-import transitions from "../utils/Transitions";
+import { transitionsTop, transitionsLeft } from "../utils/Transitions";
 
 import client from "../apollo/apollo-client";
 import ListView from "../components/ListView";
@@ -64,7 +64,7 @@ const Movie = ({ data, error }) => {
       <main className=" w-[78%] mx-auto flex flex-col justify-center items-center">
         <button
           type="button"
-          className="bg-black px-4 py-2 mb-6 hover:bg-slate-900"
+          className="bg-black px-4 py-2 mb-6 hover:bg-slate-900 transition-all duration-200"
           onClick={buttonHandler}
         >
           All Movies
@@ -98,7 +98,7 @@ const Movie = ({ data, error }) => {
                 alt="IMDB Logo"
                 width={`85rem`}
                 height={`45rem`}
-                className="hover:brightness-125"
+                className="hover:brightness-125 transition-all duration-200"
               />
             </a>
           </div>
@@ -126,7 +126,7 @@ const Movie = ({ data, error }) => {
                 transition: "all .2s",
                 transform: "scaleY(0)",
                 display: "none",
-                ...transitions[state],
+                ...transitionsTop[state],
               }}
               className="w-[96.25%] origin-top"
             >
@@ -157,7 +157,7 @@ const Movie = ({ data, error }) => {
                 transition: "all .2s",
                 transform: "scaleY(0)",
                 display: "none",
-                ...transitions[state],
+                ...transitionsTop[state],
               }}
               className="w-[96.25%] origin-top"
             >
@@ -182,13 +182,23 @@ const Movie = ({ data, error }) => {
               />
               <h2 className="text-4xl">Related Movies</h2>
             </div>
-            {relatedList && (
-              <section className="mx-auto my-4 w-[96.25%] border-l-4 border-gray-500">
-                <div className="ml-4 flex flex-wrap items-center justify-start gap-4">
-                  <MovieTiles data={data.related} />
-                </div>
-              </section>
-            )}
+            <section className="mx-auto my-4 w-[96.25%] border-l-4 border-gray-500">
+              <Transition in={relatedList} timeout={100}>
+                {(state) => (
+                  <div
+                    style={{
+                      transition: "all 0.1s",
+                      transform: "scale(0)",
+                      display: "flex",
+                      ...transitionsLeft[state],
+                    }}
+                    className="ml-4 flex flex-wrap items-center justify-start gap-4 origin-left"
+                  >
+                    <MovieTiles data={data.related} />
+                  </div>
+                )}
+              </Transition>
+            </section>
           </>
         )}
       </main>
