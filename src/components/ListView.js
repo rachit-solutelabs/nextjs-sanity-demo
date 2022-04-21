@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const ListView = ({ data }) => {
   return (
-    <section className=" w-[96.25%] flex flex-col justify-center items-start gap-2 border-l-4 border-gray-500">
+    <section className="w-full flex flex-col justify-center items-start gap-2 border-l-4 border-gray-500">
       {data.map((item) => {
         const { name } = item.person;
         let { url, altText, metadata, width, height, revAspectRatio } = true;

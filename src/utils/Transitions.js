@@ -3,15 +3,15 @@ const transitions = {
     display: "block",
   },
   entered: {
-    opacity: 1,
+    transform: "scaleY(1)",
     display: "block",
   },
   exiting: {
-    opacity: 0,
+    transform: "scaleY(0)",
     display: "block",
   },
   exited: {
-    opacity: "0",
+    transform: "scaleY(0)",
     display: "none",
   },
 };

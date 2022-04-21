@@ -7,8 +7,10 @@ import { useRouter } from "next/router";
 import { PortableText } from "@portabletext/react";
 import YouTube from "react-youtube";
 import { useState } from "react";
+import { Transition } from "react-transition-group";
 import { Meta } from "../layout/Meta.tsx";
 import { Main } from "../templates/Main.tsx";
+import transitions from "../utils/Transitions";
 
 import client from "../apollo/apollo-client";
 import ListView from "../components/ListView";
@@ -111,12 +113,27 @@ const Movie = ({ data, error }) => {
           <FaGreaterThan
             className={`text-orange-300 group-hover:text-orange-500 ${
               castList ? "rotate-90" : ""
-            }`}
+            } transition-all duration-100`}
             size="3rem"
           />
           <h2 className="text-4xl">Cast</h2>
         </div>
-        {castList && <ListView data={data.castMembers} />}
+        {/* {castList && <ListView data={data.castMembers} />} */}
+        <Transition in={castList} timeout={100}>
+          {(state) => (
+            <div
+              style={{
+                transition: "all .2s",
+                transform: "scaleY(0)",
+                display: "none",
+                ...transitions[state],
+              }}
+              className="w-[96.25%] origin-top"
+            >
+              <ListView data={data.castMembers} />
+            </div>
+          )}
+        </Transition>
 
         <div
           className="flex justify-start items-center self-start gap-4 mt-6 mb-4 cursor-pointer group"
@@ -127,14 +144,29 @@ const Movie = ({ data, error }) => {
           <FaGreaterThan
             className={`text-orange-300 group-hover:text-orange-500 ${
               crewList ? "rotate-90" : ""
-            }`}
+            } transition-all duration-100`}
             size="3rem"
           />
           <h2 className="text-4xl">Crew</h2>
         </div>
-        {crewList && <ListView data={data.crewMembers} />}
+        {/* {crewList && <ListView data={data.crewMembers} />} */}
+        <Transition in={crewList} timeout={100}>
+          {(state) => (
+            <div
+              style={{
+                transition: "all .2s",
+                transform: "scaleY(0)",
+                display: "none",
+                ...transitions[state],
+              }}
+              className="w-[96.25%] origin-top"
+            >
+              <ListView data={data.crewMembers} />
+            </div>
+          )}
+        </Transition>
 
-        {data.related && (
+        {data.related?.length > 0 && (
           <>
             <div
               className="flex justify-start items-center self-start gap-4 mt-6 mb-4 cursor-pointer group"
@@ -145,7 +177,7 @@ const Movie = ({ data, error }) => {
               <FaGreaterThan
                 className={`text-orange-300 group-hover:text-orange-500 ${
                   relatedList ? "rotate-90" : ""
-                }`}
+                } transition-all duration-100`}
                 size="3rem"
               />
               <h2 className="text-4xl">Related Movies</h2>
