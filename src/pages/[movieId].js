@@ -278,6 +278,7 @@ export async function getStaticProps(context) {
           related {
             _id
             title
+            releaseDate
             poster {
               asset {
                 url

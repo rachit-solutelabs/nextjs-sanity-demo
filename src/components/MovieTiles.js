@@ -16,7 +16,7 @@ const MovieTiles = ({ data }) => {
               className="min-h-fit min-w-fit rounded-t-2xl"
             />
             <h2 className="my-2 flex h-[60px] max-w-[195px] items-center justify-center text-center text-xl">
-              {item.title}
+              {item.title} ({item.releaseDate.slice(0, 4)})
             </h2>
           </div>
         </a>

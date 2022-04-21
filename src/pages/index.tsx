@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { gql } from "@apollo/client";
+import { useState } from "react";
 
 import { Meta } from "@/layout/Meta";
 import { Main } from "@/templates/Main";
@@ -9,6 +10,8 @@ import MovieTiles from "../components/MovieTiles";
 import Sort from "../components/Sort";
 
 const Index = ({ data, error }) => {
+  const [sortedData, setSortedData] = useState(data);
+
   return (
     <Main
       meta={
@@ -19,11 +22,11 @@ const Index = ({ data, error }) => {
       }
     >
       <div className="mx-auto w-[83%]">
-        <Sort />
+        <Sort data={data} setSortedData={setSortedData} />
       </div>
       <main className="mx-auto my-4 flex w-[85%] flex-wrap items-center justify-center gap-4">
         {error && <p>GraphQL error :(</p>}
-        {!error && <MovieTiles data={data} />}
+        {sortedData && !error && <MovieTiles data={sortedData} />}
       </main>
     </Main>
   );
