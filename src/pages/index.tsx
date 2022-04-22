@@ -21,7 +21,7 @@ const Index = ({ data, error }) => {
         />
       }
     >
-      <div className="mx-auto w-[83%]">
+      <div className="mx-auto w-[83%] sm:w-full">
         <Sort data={data} setSortedData={setSortedData} />
       </div>
       <main className="mx-auto my-4 flex w-[85%] flex-wrap items-center justify-center gap-4">

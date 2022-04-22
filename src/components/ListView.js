@@ -14,8 +14,8 @@ const ListView = ({ data }) => {
 
         return (
           <div
-            key={name}
-            className="flex flex-row justify-start items-center gap-4 ml-4"
+            key={name + (item.characterName || item.job)}
+            className="flex flex-row justify-start items-center gap-4 ml-4 xl:flex-col xl:justify-center xl:items-start"
           >
             {item.person.image && (
               <Image
@@ -31,14 +31,14 @@ const ListView = ({ data }) => {
               </div>
             )}
             {item.characterName && (
-              <div className="text-2xl text-yellow-200 flex flex-row gap-2 justify-start items-start">
+              <div className="text-2xl text-yellow-200 flex flex-row gap-2 justify-start items-start xl:items-center xl:text-base xl:-mt-8">
                 <p className="uppercase">{name}</p>
                 <p className="text-white"> as </p>
                 <p className="uppercase">{item.characterName}</p>
               </div>
             )}
             {item.job && (
-              <div className="text-2xl text-yellow-200 flex flex-row justify-start items-start">
+              <div className="text-2xl text-yellow-200 flex flex-row justify-start items-start xl:items-center xl:text-base xl:-mt-8">
                 <p className="uppercase">{name}</p>
                 <p className="text-white">, {item.job}</p>
               </div>

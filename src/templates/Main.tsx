@@ -12,7 +12,7 @@ const Main = (props: IMainProps) => (
     {props.meta}
 
     <div className="mx-auto">
-      <div className="mx-auto max-w-screen-md border-b border-gray-300">
+      <div className="mx-auto max-w-[768px] border-b border-gray-300">
         <div className="pt-4 pb-8">
           <div className="text-3xl font-bold text-gray-50">
             {AppConfig.site_name}
@@ -23,7 +23,7 @@ const Main = (props: IMainProps) => (
 
       <div className="content py-5 text-xl">{props.children}</div>
 
-      <div className="mx-auto max-w-screen-md border-t border-gray-300 py-8 text-center text-sm">
+      <div className="mx-auto max-w-[768px] border-t border-gray-300 py-8 text-center text-sm">
         Created with Boilerplate provided by{" "}
         <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
         {/*

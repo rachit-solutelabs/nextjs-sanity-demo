@@ -6,7 +6,7 @@ import { FaGreaterThan } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { PortableText } from "@portabletext/react";
 import YouTube from "react-youtube";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Transition } from "react-transition-group";
 import { Meta } from "../layout/Meta.tsx";
 import { Main } from "../templates/Main.tsx";
@@ -21,6 +21,9 @@ const Movie = ({ data, error }) => {
   const [crewList, setCrewList] = useState(false);
   const [relatedList, setRelatedList] = useState(false);
   const router = useRouter();
+  const refCast = useRef();
+  const refCrew = useRef();
+  const refRelated = useRef();
 
   const buttonHandler = () => {
     router.push("/");
@@ -69,7 +72,7 @@ const Movie = ({ data, error }) => {
         >
           All Movies
         </button>
-        <div className="w-full flex flex-row gap-8">
+        <div className="w-full flex flex-row gap-8 xl:flex-col">
           <div
             className={`relative w-[${width / 2}px] h-[${
               height / 2
@@ -103,7 +106,10 @@ const Movie = ({ data, error }) => {
             </a>
           </div>
         </div>
-        <YouTube videoId={data.youtube} className="my-10" />
+        <YouTube
+          videoId={data.youtube}
+          className="my-10 xl:max-w-full xl:aspect-video xl:h-auto"
+        />
         <div
           className="flex justify-start items-center self-start gap-4 mb-4 cursor-pointer group"
           onClick={() => {
@@ -119,7 +125,7 @@ const Movie = ({ data, error }) => {
           <h2 className="text-4xl">Cast</h2>
         </div>
         {/* {castList && <ListView data={data.castMembers} />} */}
-        <Transition in={castList} timeout={100}>
+        <Transition in={castList} timeout={100} nodeRef={refCast}>
           {(state) => (
             <div
               style={{
@@ -128,6 +134,7 @@ const Movie = ({ data, error }) => {
                 display: "none",
                 ...transitionsTop[state],
               }}
+              ref={refCast}
               className="w-[96.25%] origin-top"
             >
               <ListView data={data.castMembers} />
@@ -150,7 +157,7 @@ const Movie = ({ data, error }) => {
           <h2 className="text-4xl">Crew</h2>
         </div>
         {/* {crewList && <ListView data={data.crewMembers} />} */}
-        <Transition in={crewList} timeout={100}>
+        <Transition in={crewList} timeout={100} nodeRef={refCrew}>
           {(state) => (
             <div
               style={{
@@ -159,6 +166,7 @@ const Movie = ({ data, error }) => {
                 display: "none",
                 ...transitionsTop[state],
               }}
+              ref={refCrew}
               className="w-[96.25%] origin-top"
             >
               <ListView data={data.crewMembers} />
@@ -183,7 +191,7 @@ const Movie = ({ data, error }) => {
               <h2 className="text-4xl">Related Movies</h2>
             </div>
             <section className="mx-auto my-4 w-[96.25%] border-l-4 border-gray-500">
-              <Transition in={relatedList} timeout={100}>
+              <Transition in={relatedList} timeout={100} nodeRef={refRelated}>
                 {(state) => (
                   <div
                     style={{
@@ -192,6 +200,7 @@ const Movie = ({ data, error }) => {
                       display: "flex",
                       ...transitionsLeft[state],
                     }}
+                    ref={refRelated}
                     className="ml-4 flex flex-wrap items-center justify-start gap-4 origin-left"
                   >
                     <MovieTiles data={data.related} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FaSortAlphaDown,
   FaSortAlphaDownAlt,
@@ -13,6 +13,7 @@ const Sort = ({ data, setSortedData }) => {
   // const size = 1;
   const [show, setShow] = useState(false);
   const [sortMethod, setSortMethod] = useState("none");
+  const ref = useRef();
 
   useEffect(() => setSortMethod(localStorage.getItem("sortMethod")), []);
 
@@ -45,7 +46,7 @@ const Sort = ({ data, setSortedData }) => {
         } transition-all duration-200`}
         onClick={() => setShow((s) => !s)}
       />
-      <Transition in={show} timeout={100}>
+      <Transition in={show} timeout={100} nodeRef={ref}>
         {(state) => (
           <div
             style={{
@@ -54,12 +55,13 @@ const Sort = ({ data, setSortedData }) => {
               display: "flex",
               ...transitionsLeft[state],
             }}
+            ref={ref}
             className="flex flex-row w-full justify-start items-center origin-left"
           >
             <MdPlayArrow
               size={`5rem`}
               color="black"
-              className={`rotate-180 -mr-[2.2rem] -ml-[1rem]`}
+              className={`rotate-180 -mr-[2.2rem] -ml-[1rem] xl:-ml-8`}
             />
             <div className="bg-black max-w-fit flex flex-row flex-wrap justify-center items-center z-10">
               <div

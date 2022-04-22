@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   FaSortAlphaDown,
   FaSortAlphaDownAlt,
@@ -12,6 +12,7 @@ import { transitionsLeft } from "../utils/Transitions";
 const Sort = () => {
   const size = 1;
   const [show, setShow] = useState(false);
+  const ref = useRef();
 
   return (
     <div className="flex flex-row justify-start items-center">
@@ -24,7 +25,7 @@ const Sort = () => {
         }`}
         onClick={() => setShow((s) => !s)}
       />
-      <Transition in={show} timeout={100}>
+      <Transition in={show} timeout={100} nodeRef={ref}>
         {(state) => (
           <div
             style={{
@@ -33,6 +34,7 @@ const Sort = () => {
               display: "flex",
               ...transitionsLeft[state],
             }}
+            ref={ref}
             className="flex flex-row w-full justify-start items-center origin-left"
           >
             <MdPlayArrow
